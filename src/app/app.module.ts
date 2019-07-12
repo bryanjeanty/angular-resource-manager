@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { appRoutingModule } from './app.routing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AlertComponent, ImportComponent, RecordComponent, SelectComponent, TransferComponent } from './_components';
@@ -15,7 +17,9 @@ import { ErrorComponent } from './error';
 @NgModule({
     imports: [
         BrowserModule,
-        appRoutingModule
+        appRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule
       ],
   declarations: [
     AppComponent,

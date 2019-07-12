@@ -6,4 +6,4 @@ export * from './project.service';
 export * from './resource.service';
 export * from './select.service';
 export * from './transfer.service';
-export * from './user.service';
+export * from './account.service';
