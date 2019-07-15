@@ -13,6 +13,6 @@ export class AccountService {
   constructor(private http: HttpClient) {}
     
   signUp(account: Account) {
-      return this.http.post(`${apiUrl}/api/v1/register`, account);
+      return this.http.post(`${apiUrl}/register`, account);
   }
 }

@@ -6,15 +6,17 @@ import { ResourceComponent } from './resource';
 import { ProjectComponent } from './project';
 import { FormulaComponent } from './formula';
 import { TemplateComponent } from './template';
-import { ErrorComponent } from './error'
+import { ErrorComponent } from './error';
+
+import { AuthGuard } from './_helpers';
 
 const routes: Routes = [
     { path: 'signin' , component: SigninComponent },
     { path: 'signup' , component: SignupComponent },
-    { path: 'resource' , component: ResourceComponent },
-    { path: 'project' , component: ProjectComponent },
-    { path: 'formula' , component: FormulaComponent },
-    { path: 'template' , component: TemplateComponent },
+    { path: 'resource' , component: ResourceComponent, canActivate: [AuthGuard] },
+    { path: 'project' , component: ProjectComponent, canActivate: [AuthGuard] },
+    { path: 'formula' , component: FormulaComponent, canActivate: [AuthGuard] },
+    { path: 'template' , component: TemplateComponent, canActivate: [AuthGuard] },
     
     // no homepage -> redirect to signin page
     { path: '', redirectTo: 'signin', pathMatch: 'full' },

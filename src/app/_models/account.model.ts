@@ -1,6 +1,6 @@
 export class Account {
-    username: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
+    private username: string;
+    private email: string;
+    private password: string;
+    private confirmPassword: string;
 }

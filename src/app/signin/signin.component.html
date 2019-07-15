@@ -1,1 +1,29 @@
 <h1>Signin Page</h1>
+<form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    
+    <div>
+        <label for="username">Username</label>
+        <input type="text" formControlName="username" />
+        <div *ngIf="submitted && signinForm.controls.username.errors">
+            <div *ngIf="submitted && signinForm.controls.username.errors.required">
+                Username is required!
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" />
+        <div *ngIf="submitted && signinForm.controls.password.errors">
+            <div *ngIf="submitted && signinForm.controls.password.errors.required">
+                Password is required!
+            </div>
+        </div>
+    </div>
+    
+    <div>
+        <input type="submit" [disabled]="loading" value="Sign In" />
+        <a routerLink="/signup">Sign Up</a>
+    </div>
+    
+</form>
