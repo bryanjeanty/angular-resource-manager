@@ -15,7 +15,7 @@ import { TemplateComponent } from './template';
 import { ErrorComponent } from './error';
 
 import { AccountService, AuthenticationService } from './_services';
-
+import { Record } from './_models';
 import { JwtInterceptor, ErrorInterceptor } from './_helpers';
 
 @NgModule({
@@ -43,6 +43,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
   providers: [
       AccountService,
       AuthenticationService,
+      Record,
       { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
       { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
