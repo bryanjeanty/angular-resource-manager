@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { appRoutingModule } from './app.routing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FileSelectDirective, FileUploadModule } from 'ng2-file-upload';
 
 import { AppComponent } from './app.component';
 import { AlertComponent, ImportComponent, RecordComponent, SelectComponent, TransferComponent } from './_components';
@@ -23,7 +24,8 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
         BrowserModule,
         appRoutingModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        FileUploadModule
       ],
   declarations: [
     AppComponent,
@@ -38,7 +40,8 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     SigninComponent,
     SignupComponent,
     TemplateComponent,
-    ErrorComponent
+    ErrorComponent,
+//    FileSelectDirective
   ],
   providers: [
       AccountService,

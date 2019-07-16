@@ -1,34 +1,61 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 import { first } from 'rxjs/operators';
 
 import { ResourceService } from '../_services';
 import { Record } from "../_models";
+import { environment } from '../../environments/environment';
+
+const uploadUrl = `${environment.apiUrl}/auth/uploads`;
 
 @Component({
     templateUrl: './resource.component.html'
 })
 export class ResourceComponent implements OnInit {
     type = "resource";
+    
     idsArray: Array<any> = [];
     keysArray: Array<any> = [];
     valuesArray: Array<any> = [];
     dataTypesArray: Array<any> = [];
+    
+    tableForm: FormGroup;
+    
     loading: boolean = false;
+    
+    uploader: FileUploader = new FileUploader({
+        url: uploadUrl,
+        method: 'POST',
+        itemAlias: 'file'
+    })
     
     constructor(
                 private resourceService: ResourceService,
-                private record: Record
+                private record: Record,
+                private formBuilder: FormBuilder
                 ) {}
     
     ngOnInit() {
+        this.uploader.onBeforeUploadItem = (item) => {
+          item.withCredentials = false;
+          this.uploader.authToken = localStorage.getItem('JWT');
+        }
+        this.uploader.onCompleteItem = (item, response, status, headers) => {
+            console.log('Item', item);
+            console.log("");
+            console.log('Response', response);
+        }
+        
+        this.tableForm = this.formBuilder.group({});
+        
         this.loading = true;
+        
         this.resourceService
             .getAllResourceRecords()
             .pipe(first())
             .subscribe(
                 data => {
-                    console.log(data);
-                    console.log("");
                     data.body.map(record => {
                         let keys = Object.keys(record);
                         let dataValues =  Object.values(record);
@@ -54,16 +81,10 @@ export class ResourceComponent implements OnInit {
                     
                     this.keysArray = this.keysArray[0];
                     
-                    console.log(this.keysArray);
-                    console.log("");
-                    console.log(this.valuesArray);
-                    console.log("");
-                    console.log(this.dataTypesArray);
-                    
                     this.loading = false;
                 },
                 error => {
-                    console.error(error);
+                    console.error("GET RESOURCES ERROR", error);
                     this.loading = false;
                 }
             );
@@ -76,8 +97,7 @@ export class ResourceComponent implements OnInit {
             
             return;
             
-        } else {        
-            
+        } else { 
             for (let i = 0; i < this.valuesArray.length; i++) {
                 let keysString = this.keysArray.join(",") + "," + newCol;
                 let valuesString = this.valuesArray[i].join(",") + "," + " ";
@@ -95,17 +115,88 @@ export class ResourceComponent implements OnInit {
                     .pipe(first())
                     .subscribe(
                         data => {
-                            console.log(this.record);
-                            console.log(data);
                             this.loading = false;
                             location.reload();
                         },
                         error => {
-                            console.error(error);
+                            console.error("CREATE COLUMN ERROR", error);
                             this.loading = false
                         }
                     )
             }
         }
+    }
+    
+    addNewRow() {
+        let newRow = document.createElement('tr');
+        
+        let tableControlsObject = {};
+        
+        for (let i = 0; i < this.keysArray.length; i++) {
+            
+            tableControlsObject[`${this.keysArray[i]}`] = new FormControl();
+            
+            newRow.innerHTML += `<td style='border: 1px solid black'>
+                                    <input id='${this.keysArray[i]}-control' formControlName='${this.keysArray[i]}' type='text' />
+                                </td>`;
+        }
+        
+        this.tableForm = this.formBuilder.group(tableControlsObject);
+        
+        newRow.innerHTML += `<button type='submit'>
+                                Submit
+                            </button>`;
+        
+        let tableBody = document.getElementById("rsc-tbl-body");
+        let addRowBtn = document.getElementById("rsc-add-row-btn");
+        
+        addRowBtn.style.display = "none";
+        tableBody.appendChild(newRow);
+    }
+    
+    submitRecord() {
+        let tableControlNames = Object.keys(this.tableForm.controls);
+        let newValuesArray = [];
+        let newDataTypesArray = [];
+        
+        for (let i = 0; i < tableControlNames.length; i++) {
+            let formControl = document.getElementById(`${tableControlNames[i]}-control`);
+            
+            newValuesArray.push(formControl["value"]);
+            
+            if (isNaN(parseInt(formControl["value"])) || isNaN(parseFloat(formControl["value"]))) {
+                
+                newDataTypesArray.push("text");
+                
+            } else {
+                
+                newDataTypesArray.push("number");
+            }
+        }
+        
+        let keysString = this.keysArray.join(",");
+        let valuesString = newValuesArray.join(",");
+        let dataTypesString = newDataTypesArray.join(",");
+        
+        this.record.setType(this.type);
+        this.record.setKeys(keysString);
+        this.record.setKeyValues(valuesString);
+        this.record.setDataTypes(dataTypesString);
+        
+        this.loading = true;
+        
+        this.resourceService
+            .createResourceRecord(this.record)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.loading = false;
+                    location.reload();
+                },
+                error => {
+                    console.error('CREATE RESOURCE ERROR', error);
+                    this.loading = false;
+                }
+            )
     }
 }

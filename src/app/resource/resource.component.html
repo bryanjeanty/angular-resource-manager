@@ -1,22 +1,38 @@
-<h1>Resource Page</h1>
-<table>
-    <thead>
-            <tr style="border: 1px solid black">
-                <th *ngFor="let key of keysArray" style="border: 1px solid black">
-                    {{ key }}
-                </th>
-                <th>
-                    <button (click)="addNewColumn()">
-                        Add Column
-                    </button>
-                </th>
-            </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let values of valuesArray" style="border: 1px solid black">
-            <td *ngFor="let value of values" style="border: 1px solid black">
-                {{ value }}
-            </td>
-        </tr>
-    </tbody>
-</table>
+ <div>
+    <h1>Resource Page</h1>
+    <button (click)="addNewColumn()">
+        Add Column
+    </button>
+     <input 
+        type="file" 
+        ng2FileSelect [uploader]="uploader" 
+    />
+    <button 
+        type="submit" 
+        (click)="uploader.uploadAll()"
+        [disabled]="!uploader.getNotUploadedItems().length"
+    >
+        Import File
+     </button>
+    <form [formGroup]="tableForm" (ngSubmit)="submitRecord()">
+        <table>
+            <thead>
+                    <tr style="border: 1px solid black">
+                        <th *ngFor="let key of keysArray" style="border: 1px solid black">
+                            {{ key }}
+                        </th>
+                    </tr>
+            </thead>
+            <tbody id="rsc-tbl-body">
+                <tr *ngFor="let values of valuesArray" style="border: 1px solid black" >
+                    <td *ngFor="let value of values" style="border: 1px solid black">
+                        {{ value }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <button id="rsc-add-row-btn" (click)="addNewRow()">
+        Add Row
+    </button>
+</div>
