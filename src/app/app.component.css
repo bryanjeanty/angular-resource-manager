@@ -42,15 +42,44 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    position: relative;
 }
 .topbar-icons {
     font-size: 2.1rem;
+    cursor: pointer;
+}
+/* The actual popup (appears on top) */
+#popup-menu {
+    visibility: visible;
+    width: 160px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    position: absolute;
+    z-index: 1;
+    right: 65%;
+    top: 95%;
+}
+/* Popup arrow */
+#popup-menu::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 45%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #555 transparent;
+}
+#popup-menu.hidden {
+    visibility: hidden;
 }
 /* main container */
 .wrapper {
     display: flex;
-    width: 100%;
-    align-items: stretch;
+    position: relative;
 }
 /* sidebar */
 #sidebar {
@@ -70,6 +99,9 @@
     color: darkorange;
 }
 /* content */
+#content {
+    width: 100%;
+}
 #sidebarCollapse {
     background-color: #000;
     border: none;
@@ -85,5 +117,9 @@
 }
 /* page content */
 #page-content {
-    margin-left: 50px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

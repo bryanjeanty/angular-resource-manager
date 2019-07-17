@@ -21,6 +21,10 @@ export class AuthenticationService {
         this.authenticatedAccount = this.authenticatedAccountSubject.asObservable();
     }
     
+    public get authAccount(): Observable<any> {
+        return this.authenticatedAccount;
+    }
+    
     public get authenticatedAccountValue(): Account {
         return this.authenticatedAccountSubject.value;
     }
@@ -29,13 +33,16 @@ export class AuthenticationService {
         const account = { username, password };
         return this.http.post(`${apiUrl}/login`, account, { observe: 'response' })
                     .pipe(map(authAccount => {
+                        localStorage.setItem('username', username);
                         localStorage.setItem('authenticatedAccount', JSON.stringify(authAccount));
                         this.authenticatedAccountSubject.next(authAccount);
+                        console.log(authAccount);
                         return authAccount;
                     }));
     }
     
     signOut() {
+        localStorage.removeItem('username');
         localStorage.removeItem('authenticatedAccount');
         localStorage.removeItem('JWT');
         this.authenticatedAccountSubject.next(null);

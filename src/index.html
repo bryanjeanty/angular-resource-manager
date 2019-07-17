@@ -27,7 +27,11 @@
 
 <script>
 $(document).ready(function () {
-
+    
+    $('#user-icon').on('click', function () {
+        $('#popup-menu').toggleClass('hidden');
+    });
+    
     $('#sidebarCollapse').on('click', function () {
         $('#sidebar').toggleClass('hidden');
     });
