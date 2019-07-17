@@ -1,1 +1,43 @@
 <h1>Project Page</h1>
+<!--resource table wrapped in a form-->
+    <!--the first cell of each row should be a checkbox input-->
+<form [formGroup]="resourceTableForm" (ngSubmit)="transferRecords()">
+    <table>
+        <thead>
+            <tr>
+                <th style="border: 1px solid black">Select</th>
+                <th style="border: 1px solid black" *ngFor="let resourceKey of resourceKeys">
+                    {{ resourceKey }}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let resourceValues of resourceKeyValues; let i = index">
+                <td style="border: 1px solid black"><input class="rsc-check-box" value={{i}} type="checkbox" /></td>
+                <td style="border: 1px solid black" *ngFor="let resourceValue of resourceValues">
+                        {{ resourceValue }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit">
+        Transfer
+    </button>
+</form>
+<!--button between resource & project tables (performs transfer)-->
+<table>
+    <thead>
+        <tr>
+            <th style="border: 1px solid black" *ngFor="let projectKey of projectKeys">
+                {{ projectKey }}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let projectValues of projectKeyValues">
+            <td style="border: 1px solid black" *ngFor="let projectValue of projectValues">
+                {{ projectValue }}
+            </td>
+        </tr>
+    </tbody>
+</table>

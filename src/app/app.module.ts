@@ -40,8 +40,7 @@ import { JwtInterceptor, ErrorInterceptor } from './_helpers';
     SigninComponent,
     SignupComponent,
     TemplateComponent,
-    ErrorComponent,
-//    FileSelectDirective
+    ErrorComponent
   ],
   providers: [
       AccountService,

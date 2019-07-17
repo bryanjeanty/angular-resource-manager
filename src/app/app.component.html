@@ -1,18 +1,58 @@
-<!-- nav -->
-<nav>
-    <a routerLink="/signin">Sign In</a>
-    <a routerLink="/signup">Sign Up</a>
-    <a routerLink="/resource">Resource</a>
-    <a routerLink="/project">Project</a>
-    <a routerLink="/formula">Formula</a>
-    <a routerLink="/template">Template</a>
+<!-- top nav -->
+<nav id="topbar">
+    <div id="brand">
+        <div id="tile-box">
+            <div class="tiles"></div>
+            <div class="tiles"></div>
+            <div class="tiles"></div>
+            <div class="tiles"></div>
+        </div>
+        <div id="brand-title-box">Resource Management</div>
+    </div>
+    <div id="page-title">
+        <h1>Project 1</h1>
+    </div>
+    <div id="misc">
+        <i class="fa fa-user-circle-o topbar-icons"></i>
+        <i class="fa fa-question-circle-o topbar-icons"></i>
+    </div>
 </nav>
 
-<!-- main content container -->
-<div class="container">
-    <div class="row">
-        <div class="col">
+<!-- main container -->
+<div class="wrapper">
+    <div id="sidebar" class="hidden">
+        <ul class="list-unstyled components">
+            <li>
+                <a class="selected sidebar-links" routerLink="/resource">Resource</a>
+            </li>
+            <li>
+                <a class="sidebar-links" routerLink="/project">Project</a>
+            </li>
+            <li>
+                <a class="sidebar-links" routerLink="/formula">Formula</a>
+            </li>
+        </ul>
+        
+    </div>
+
+    <div id="content">
+        <button type="button" id="sidebarCollapse">
+            <i class="fa fa-chevron-left"></i>
+        </button>
+        <div id="page-content">
             <router-outlet></router-outlet>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+

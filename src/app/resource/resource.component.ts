@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FileUploader, FileSelectDirective } from 'ng2-file-upload';
 import { first } from 'rxjs/operators';
 
@@ -33,7 +34,8 @@ export class ResourceComponent implements OnInit {
     constructor(
                 private resourceService: ResourceService,
                 private record: Record,
-                private formBuilder: FormBuilder
+                private formBuilder: FormBuilder,
+                private router: Router
                 ) {}
     
     ngOnInit() {
@@ -45,6 +47,7 @@ export class ResourceComponent implements OnInit {
             console.log('Item', item);
             console.log("");
             console.log('Response', response);
+            this.router.navigate(['/project']);
         }
         
         this.tableForm = this.formBuilder.group({});
