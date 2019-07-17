@@ -95,16 +95,20 @@ export class ResourceComponent implements OnInit {
     
     addNewColumn() {
         let newCol = prompt("Please enter name of new column!");
-        
+    
         if (newCol === null || newCol === "") {
             
             return;
             
         } else { 
+            this.keysArray.push(newCol);
             for (let i = 0; i < this.valuesArray.length; i++) {
-                let keysString = this.keysArray.join(",") + "," + newCol;
-                let valuesString = this.valuesArray[i].join(",") + "," + " ";
-                let dataTypesString = this.dataTypesArray[i].join(",") + "," + " ";
+                this.valuesArray[i].push(" ");
+                this.dataTypesArray[i].push(" ");
+                
+                let keysString = this.keysArray.join(",");
+                let valuesString = this.valuesArray[i].join(",");
+                let dataTypesString = this.dataTypesArray[i].join(",");
 
                 this.record.setType(this.type);
                 this.record.setKeys(keysString);
@@ -119,7 +123,6 @@ export class ResourceComponent implements OnInit {
                     .subscribe(
                         data => {
                             this.loading = false;
-                            location.reload();
                         },
                         error => {
                             console.error("CREATE COLUMN ERROR", error);
