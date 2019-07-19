@@ -1,38 +1,60 @@
- <div>
+ <div id="resource-page">
     <h1>Resource Page</h1>
-    <button (click)="addNewColumn()">
+    <button 
+        (click)="addNewColumn()"
+        class="btn"
+    >
         Add Column
     </button>
-     <input 
-        type="file" 
-        ng2FileSelect [uploader]="uploader" 
-    />
+     <div id="file-input-container">
+             <input 
+                type="file" 
+                ng2FileSelect [uploader]="uploader"
+                id="file-input"
+            />
+            <button id="pseudo-file-input" class="btn">
+                Choose File    
+            </button>
+     </div>
     <button 
         type="submit" 
         (click)="uploader.uploadAll()"
         [disabled]="!uploader.getNotUploadedItems().length"
+        class="btn"
     >
         Import File
      </button>
-    <form [formGroup]="tableForm" (ngSubmit)="submitRecord()">
-        <table>
-            <thead>
-                    <tr style="border: 1px solid black">
-                        <th *ngFor="let key of keysArray" style="border: 1px solid black">
-                            {{ key }}
-                        </th>
+     <div id="resource-table-container">
+        <form [formGroup]="tableForm" (ngSubmit)="submitRecord()">
+            <table id="resource-table">
+                <thead>
+                        <tr style="border: 1px solid black">
+                            <th 
+                                *ngFor="let key of keysArray" style="border: 1px solid black"
+                                class="resource-table-cells"
+                            >
+                                {{ key }}
+                            </th>
+                        </tr>
+                </thead>
+                <tbody id="rsc-tbl-body">
+                    <tr *ngFor="let values of valuesArray" style="border: 1px solid black" >
+                        <td 
+                            *ngFor="let value of values" style="border: 1px solid black"
+                            class="resource-table-cells"
+                        >
+                            {{ value }}
+                        </td>
                     </tr>
-            </thead>
-            <tbody id="rsc-tbl-body">
-                <tr *ngFor="let values of valuesArray" style="border: 1px solid black" >
-                    <td *ngFor="let value of values" style="border: 1px solid black">
-                        {{ value }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </form>
-    <button id="rsc-add-row-btn" (click)="addNewRow()">
+                </tbody>
+            </table>
+        </form>
+     </div>
+    <button 
+        id="rsc-add-row-btn" 
+        (click)="addNewRow()"
+        class="btn"
+    >
         Add Row
     </button>
 </div>

@@ -1,5 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+
+html {
+    overflow-y: hidden;
+}
 
 body {
     font-family: 'Poppins', sans-serif;
@@ -7,7 +10,6 @@ body {
 }
 
 p {
-    font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
     font-weight: 200;
     line-height: 1.6em;

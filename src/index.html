@@ -26,17 +26,26 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 
 <script>
-$(document).ready(function () {
-    
-    $('#user-icon').on('click', function () {
-        $('#popup-menu').toggleClass('hidden');
-    });
-    
-    $('#sidebarCollapse').on('click', function () {
-        $('#sidebar').toggleClass('hidden');
-    });
-    
+window.addEventListener('DOMContentLoaded', () => {
+    // set up variables
+    let userIcon = document.querySelector('#user-icon');
+    let popupMenu = document.querySelector('#popup-menu');
+    let sidebarCollapse = document.querySelector('#sidebarCollapse');
+    let sidebar = document.querySelector('#sidebar');
     let sidebarLinks = document.querySelectorAll('.sidebar-links');
+    let fileInput = document.querySelector('#file-input');
+    let pseudoFileInput = document.querySelector('#pseudo-file-input');
+    
+    // create events
+    userIcon.addEventListener('click', () => {
+        if (popupMenu) {
+            popupMenu.classList.toggle('hidden');
+        }
+    });
+    
+    sidebarCollapse.addEventListener('click', () => {
+        sidebar.classList.toggle('hidden');
+    });
     
     for (let i = 0; i < sidebarLinks.length; i++) {
         sidebarLinks[i].addEventListener('click', () => {
@@ -49,6 +58,11 @@ $(document).ready(function () {
             }
         })
     }
+    
+    pseudoFileInput.addEventListener('click', () => {
+        let event = new MouseEvent('click');
+        fileInput.dispatchEvent(event);
+    })
 
 });    
 </script>

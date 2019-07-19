@@ -14,7 +14,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next
                 .handle(request)
                 .pipe(catchError(err => {
-                    if (err.status === 403) {
+                    if (err.status === 401) {
                         this.authenticationService.signOut();
                         location.reload(true);
                     }

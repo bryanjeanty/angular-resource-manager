@@ -11,7 +11,8 @@ import { environment } from '../../environments/environment';
 const uploadUrl = `${environment.apiUrl}/auth/uploads`;
 
 @Component({
-    templateUrl: './resource.component.html'
+    templateUrl: './resource.component.html',
+    styleUrls: ['./resource.component.css']
 })
 export class ResourceComponent implements OnInit {
     type = "resource";
@@ -142,8 +143,18 @@ export class ResourceComponent implements OnInit {
             
             tableControlsObject[`${this.keysArray[i]}`] = new FormControl();
             
-            newRow.innerHTML += `<td style='border: 1px solid black'>
-                                    <input id='${this.keysArray[i]}-control' formControlName='${this.keysArray[i]}' type='text' />
+            newRow.innerHTML += `<td 
+                                    style='border: 1px solid black'
+                                    class='rsc-row-input-cell'
+                                    size='5'
+                                 >
+                                    <input 
+                                        id='${this.keysArray[i]}-control' 
+                                        formControlName='${this.keysArray[i]}' 
+                                        type='text'
+                                        class='resource-table-cells'
+                                        size='3'
+                                    />
                                 </td>`;
         }
         
@@ -156,7 +167,7 @@ export class ResourceComponent implements OnInit {
         let tableBody = document.getElementById("rsc-tbl-body");
         let addRowBtn = document.getElementById("rsc-add-row-btn");
         
-        addRowBtn.style.display = "none";
+        addRowBtn.style.visibility = "hidden";
         tableBody.appendChild(newRow);
     }
     

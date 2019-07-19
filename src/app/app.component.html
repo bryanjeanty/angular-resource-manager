@@ -1,72 +1,64 @@
-<!-- top nav -->
-<nav id="topbar">
-    <div id="brand">
-        <div id="tile-box">
-            <div class="tiles"></div>
-            <div class="tiles"></div>
-            <div class="tiles"></div>
-            <div class="tiles"></div>
+<div id="app-container">
+    <!-- top nav -->
+    <nav id="topbar">
+        <div id="brand">
+            <div id="tile-box">
+                <div class="tiles"></div>
+                <div class="tiles"></div>
+                <div class="tiles"></div>
+                <div class="tiles"></div>
+            </div>
+            <div id="brand-title-box">Resource Management</div>
         </div>
-        <div id="brand-title-box">Resource Management</div>
-    </div>
-    <div id="page-title">
-        <div *ngIf="authenticatedAccount">
-            <h1>{{ title }}</h1>
-        </div>
-    </div>
-    <div id="misc">
-        <i id="user-icon" class="fa fa-user-circle-o topbar-icons"></i>
-        <div class="user-popup" *ngIf="authenticatedAccount">
-            <div id="popup-menu" class="hidden">
-                <button class="btn" (click)="logout()">
-                    Logout
-                </button>
+        <div id="page-title-container">
+            <div *ngIf="authenticatedAccount">
+                <h1 id="page-title">{{ title }}</h1>
             </div>
         </div>
-        <div *ngIf="authenticatedAccount">
-            <span>{{ username }}</span>
+        <div id="misc">
+            <i id="user-icon" class="fa fa-user-circle-o topbar-icons"></i>
+            <div class="user-popup" *ngIf="authenticatedAccount">
+                <div id="popup-menu" class="hidden">
+                    <button class="btn" (click)="logout()">
+                        Logout
+                    </button>
+                </div>
+            </div>
+            <div *ngIf="authenticatedAccount">
+                <span>{{ username }}</span>
+            </div>
+            <i class="fa fa-question-circle-o topbar-icons"></i>
         </div>
-        <i class="fa fa-question-circle-o topbar-icons"></i>
-    </div>
-</nav>
+    </nav>
 
-<!-- main container -->
-<div class="wrapper">
-    <div id="sidebar" class="hidden">
-        <ul class="list-unstyled components">
-            <li>
-                <a class="selected sidebar-links" routerLink="/resource">Resource</a>
-            </li>
-            <li>
-                <a class="sidebar-links" routerLink="/project">Project</a>
-            </li>
-            <li>
-                <a class="sidebar-links" routerLink="/formula">Formula</a>
-            </li>
-        </ul>
-        
-    </div>
+    <!-- content wrapper -->
+    <div class="wrapper">
+        <!-- sidebar -->
+        <div id="sidebar" class="hidden">
+            <ul class="list-unstyled components">
+                <li>
+                    <a class="selected sidebar-links" routerLink="/resource">Resource</a>
+                </li>
+                <li>
+                    <a class="sidebar-links" routerLink="/project">Project</a>
+                </li>
+                <li>
+                    <a class="sidebar-links" routerLink="/formula">Formula</a>
+                </li>
+            </ul>
 
-    <div id="content">
-        <div id="btn-container">
-            <button type="button" id="sidebarCollapse">
-                <i class="fa fa-chevron-left"></i>
-            </button>
         </div>
-        <div id="page-content">
-            <router-outlet></router-outlet>
+
+        <!-- main content -->
+        <div id="content">
+            <div id="btn-container">
+                <button type="button" id="sidebarCollapse">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+            </div>
+            <div id="page-content">
+                <router-outlet></router-outlet>
+            </div>
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
